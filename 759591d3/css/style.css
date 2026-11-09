@@ -262,6 +262,8 @@ body.loose .dialog::before { filter: contrast(.92); transform: rotate(-.25deg); 
 #scr-lock { background: #000; }
 #scr-lock .bg { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(.6) brightness(.35); }
 #scr-lock .line { position: absolute; left: 0; right: 0; top: 46%; text-align: center; color: #d6cfc6; font-size: 26px; letter-spacing: 8px; opacity: 0; animation: fadein 4s 1.5s forwards; }
+#scr-lock .ta-garble { position: absolute; left: 0; right: 0; top: calc(46% + 58px); text-align: center; color: #d6cfc6; font-size: 18px; letter-spacing: 2px; opacity: 0; animation: fadein-ta 4s 4s forwards; user-select: text; -webkit-user-select: text; cursor: text; }
+@keyframes fadein-ta { to { opacity: .45; } }
 #scr-lock .knot { position: absolute; right: 18px; bottom: 16px; width: 26px; height: 26px; opacity: .22; }
 #scr-lock .tiny { position: absolute; left: 14px; bottom: 10px; color: #444; font-size: 11px; font-family: var(--sans); }
 
@@ -582,3 +584,51 @@ body.compact .hud .appt-badge { font-size: 16px; }
 #ov-statshelp .modal { width: 900px; }   /* 数值说明：放宽、字小一点，一屏看完不用滚 */
 #ov-statshelp .how-text { width: auto; max-width: none; font-size: 19px; line-height: 1.6; }
 body.compact #ov-statshelp .how-text { font-size: 21px; line-height: 1.5; }
+
+/* ———— 测试报告（AI 试玩 阶段一，11/09）———— */
+/* 1. 生成 / 播放中行动列表整块收起；置灰更明显 */
+.actions.busy { visibility: hidden; }
+.btn:disabled { opacity: .38; filter: grayscale(1); cursor: not-allowed; }
+.actions .list .btn[data-over="1"] .cost { color: var(--red); text-decoration: line-through; }
+.actions .list { -webkit-mask-image: linear-gradient(#000 calc(100% - 26px), transparent); mask-image: linear-gradient(#000 calc(100% - 26px), transparent); padding-bottom: 22px; }
+/* CG 上的剧情选项：放到下方中间，不盖住河的脸 */
+.actions.choosing.over-cg { left: 50%; right: auto; top: auto; bottom: 214px; width: 620px; transform: translateX(-50%); }
+.actions.choosing.over-cg .head { align-self: center; }
+.actions.choosing.over-cg .list { -webkit-mask-image: none; mask-image: none; padding-bottom: 0; }
+/* 右上 HUD：深色底板，浅色场景上也看得清 */
+.topbtns { background: rgba(18,14,11,.5); border-radius: 10px; padding: 4px 8px; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+.icon-btn { color: #f3ece2; text-shadow: 0 1px 3px rgba(0,0,0,.9); }
+/* 约定：直接写出来（字号不变） */
+/* 「重来」和其他三个隔开一点（尺寸不变） */
+.dialog .ctl button:first-child { margin-right: 20px; }
+.hud .appt-badge { background: rgba(255,250,240,.75); }
+/* 地图：说明栏、锁住的地点、「去这里」固定在底部、时段滤镜、地图上的手机 */
+#ov-map .side { bottom: 38px; }
+#ov-map .info { flex: 1; min-height: 0; }
+#ov-map .info .grow { flex: 1; }
+#ov-map .info .go { flex: none; }
+.pin.locked { opacity: .55; filter: grayscale(1); }
+.pin .lock { font-style: normal; font-size: 12px; color: #fff; background: #6d655b; padding: 0 5px; line-height: 18px; border-radius: 2px; }
+#ov-map .tint { position: absolute; top: 0; right: 0; bottom: 0; left: 0; pointer-events: none; }
+#ov-map.dusk .tint { background: rgba(196,110,40,.22); mix-blend-mode: multiply; }
+#ov-map.night .tint { background: rgba(20,30,70,.5); mix-blend-mode: multiply; }
+#ov-map .map-phone { position: relative; height: 48px; font-size: 17px; letter-spacing: 4px; text-align: center; }
+#ov-map .map-phone .badge { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); min-width: 22px; height: 22px; border-radius: 11px; background: var(--red); color: #fff; font: 12px/22px var(--sans); text-align: center; padding: 0 5px; letter-spacing: 0; }
+/* 弹窗右上角的 × */
+.modal { position: absolute; }
+.modal-x { position: absolute; right: 8px; top: 6px; width: 44px; height: 44px; border: 0; background: none; font-size: 28px; line-height: 1; color: var(--ink2); cursor: pointer; }
+.modal-x:hover { color: var(--red); }
+/* 记录：按天分段 */
+.log-list .log-day { margin: 14px 0 4px; font-size: 15px; letter-spacing: 4px; color: var(--ink2); border-bottom: 1px solid rgba(94,90,83,.3); }
+.log-list .log-day:first-child { margin-top: 0; }
+/* 选打扮：多露一点衣服 */
+#ov-outfit .o img { height: 600px; top: 0; }
+/* 拼图：标题不撑宽窗口；拼完的字 */
+.win98 .tb { overflow: hidden; white-space: nowrap; gap: 4px; }
+.win98 .tb span { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.win98 .tb b { flex: none; }
+.puzzle-done { position: absolute; left: 0; right: 0; bottom: 26px; text-align: center; color: #f3ece2; font-size: 22px; letter-spacing: 6px; text-shadow: 0 2px 10px #000; z-index: 600; }
+/* 器官托盘：拖走的位置留空 */
+.piece-gap { width: 110px; height: 110px; }
+/* 锁定画面：牠的那一句（复制出去才是真的） */
+.log-list { overflow-x: hidden; }

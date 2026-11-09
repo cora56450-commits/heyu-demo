@@ -1,14 +1,14 @@
 // 启动：缩放、读设置、离线判定、标题画面
-import { h, A, $, showScreen, modal, confirmBox, closeOv, toast } from './ui/dom.js?v=1794231182';
-import { store, getSettings, saveSettings, getGallery } from './store.js?v=1794231182';
-import { G, loadEvents, startRun, continueRun, triggerEnding, playerReturned, startIdleWatch, hasAsset } from './game.js?v=1794231182';
-import { newRun, loadRun, hasActiveRun, saveRun } from './state.js?v=1794231182';
-import { readLastActive, touchActive, installActivity, installCopyHook } from './meta.js?v=1794231182';
-import { MID } from './config/endings.js?v=1794231182';
-import { madTier } from './config/values.js?v=1794231182';
-import * as P from './ui/panels.js?v=1794231182';
-import { DEMO, DEMO_KEY, DEMO_BASE, DEMO_LAST_DAY, DEMO_TAG } from './config/demo.js?v=1794231182';
-import { showLock, showAftermath } from './ui/ending.js?v=1794231182';
+import { h, A, $, showScreen, modal, confirmBox, closeOv, toast } from './ui/dom.js?v=1794231521';
+import { store, getSettings, saveSettings, getGallery } from './store.js?v=1794231521';
+import { G, loadEvents, startRun, continueRun, triggerEnding, playerReturned, startIdleWatch, hasAsset } from './game.js?v=1794231521';
+import { newRun, loadRun, hasActiveRun, saveRun } from './state.js?v=1794231521';
+import { readLastActive, touchActive, installActivity, installCopyHook } from './meta.js?v=1794231521';
+import { MID } from './config/endings.js?v=1794231521';
+import { madTier } from './config/values.js?v=1794231521';
+import * as P from './ui/panels.js?v=1794231521';
+import { DEMO, DEMO_KEY, DEMO_BASE, DEMO_LAST_DAY, DEMO_TAG } from './config/demo.js?v=1794231521';
+import { showLock, showAftermath } from './ui/ending.js?v=1794231521';
 
 // 1280×720 等比缩放，四周黑边
 function fit() {
@@ -47,14 +47,14 @@ document.getElementById('rotate-go')?.addEventListener('click', async () => {
 // 键盘推进对话
 addEventListener('keydown', e => {
   if (e.target.matches('input,textarea')) return;
-  if ((e.key === ' ' || e.key === 'Enter') && G.R && !$('#overlays').children.length) { e.preventDefault(); import('./game.js?v=1794231182').then(m => m.advance()); }
+  if ((e.key === ' ' || e.key === 'Enter') && G.R && !$('#overlays').children.length) { e.preventDefault(); import('./game.js?v=1794231521').then(m => m.advance()); }
 });
 
 let bootOffline = 0;
 
 function showTitle() {
   G.R = null; G.s = null;
-  import('./audio.js?v=1794231182').then(a => a.playBgm('title'));
+  import('./audio.js?v=1794231521').then(a => a.playBgm('title'));
   for (const o of [...$('#overlays').children]) o.remove();
   const active = hasActiveRun();
   const items = [
@@ -133,6 +133,7 @@ async function start(resume = null) {
       if (!(await needKey())) return;
       if (hasActiveRun() && !(await confirmBox('开始', '会从第一天重新开始，当前的自动存档会被覆盖。（手动存档和图鉴保留）', '重新开始'))) return;
       if (!(await contentWarning())) return;
+      if (!(await aiTip())) return;
       await P.blackLines(P.PROLOGUE);            // 序：屏幕外的你、选一张脸、四十二天
     }
     let pick = resume?.pick;
@@ -159,6 +160,21 @@ async function contentWarning() {
     { buttons: [{ label: '我知道了，开始', value: true }, { label: '返回', value: false }], noClose: true });
   if (ok) store.set('cw_ok', 1);
   return !!ok;
+}
+// 每次新开一局前提醒一下模型和思维链：不少人不会去翻设置，就一直用 flash、不开思维链玩下去
+async function aiTip() {
+  const st = getSettings();
+  if (st.mock) return true;
+  const isPro = /pro/i.test(st.model || ''), think = st.thinking || 'off';
+  if (isPro && think !== 'off') return true;   // 已经是推荐设置
+  const modelName = isPro ? 'pro（好）' : /flash/i.test(st.model || '') ? 'flash（快）' : (st.model || '默认');
+  const thinkName = { off: '关', events: '只在固定剧情开', all: '全部开' }[think] || think;
+  const v = await modal('aitip', '调一下 AI', h('div', { class: 'how-text' },
+    `现在：模型 ${modelName}，思维链「${thinkName}」。\n· 换 pro：人物更像自己、前后更连贯；慢一点，费用高 4–5 倍。\n· 开思维链（只在固定剧情）：关键剧情先想再写，少出错。\n之后随时可以在「设置」里改。`),
+    { buttons: [{ label: '用推荐的（pro + 思维链）', value: 'rec' }, { label: '只开思维链', value: 'think' }, { label: '保持现在', value: 'keep' }] });
+  if (v === 'rec') saveSettings({ ...st, model: /deepseek/i.test(st.baseUrl || 'deepseek') ? 'deepseek-v4-pro' : st.model, thinking: think === 'off' ? 'events' : think });
+  if (v === 'think') saveSettings({ ...st, thinking: 'events' });
+  return v != null;
 }
 function systemNoticeSafe(t) { try { P.systemNotice(t, [{ label: '好', value: 1 }]); } catch {} }
 function hasManualSave() { return ['slot1', 'slot2', 'slot3'].some(id => { const s = loadRun(id); return s && !s.ended; }); }
@@ -187,7 +203,7 @@ function otherTabOpen() {
 let tabChannel = null;
 function showElsewhere() {
   G.blocked = true;
-  import('./audio.js?v=1794231182').then(a => a.stopAll()).catch(() => {});   // 被接管的页面不能还在放音乐，不然两边的 BGM 叠在一起
+  import('./audio.js?v=1794231521').then(a => a.stopAll()).catch(() => {});   // 被接管的页面不能还在放音乐，不然两边的 BGM 叠在一起
   for (const o of [...$('#overlays').children]) o.remove();
   // 测试记录 7 #A：忘了关的后台页面也会把人卡在这里，所以给一个「在这里继续」：通知另一边停下，这边重新进
   const take = () => { try { tabChannel?.postMessage('takeover'); sessionStorage.setItem('gucun_takeover', '1'); } catch {} location.reload(); };

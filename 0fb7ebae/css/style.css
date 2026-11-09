@@ -567,8 +567,8 @@ body.compact .prologue-lines p { font-size: 32px; }
 .hud .appt-badge { font-size: 13px; padding: 1px 7px; border: 1px solid var(--red); color: var(--red); background: transparent; border-radius: 3px; cursor: pointer; font-family: inherit; }
 body.compact .hud .appt-badge { font-size: 16px; }
 /* 数值页：说明常驻在下面 */
-#ov-stats .stats-help { position: absolute; left: 110px; top: 430px; width: 590px; font-size: 14px; line-height: 1.75; color: #A9A39A; white-space: pre-line; }
-body.compact #ov-stats .stats-help { font-size: 15px; line-height: 1.55; top: 425px; }
+#ov-stats .stats-q { position: absolute; left: 270px; bottom: 36px; height: 44px; padding: 0 22px; border: 1px solid #5a534b; background: none; color: #A9A39A; font-size: 15px; letter-spacing: 3px; cursor: pointer; }
+#ov-stats .stats-q:hover { color: #E9E4DA; border-color: #A9A39A; }
 #ov-stats .shut { bottom: 36px; }
 /* 地图：有事的地点（人肉 v3 · 12） */
 #ov-map .pin .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--red); margin-left: 6px; vertical-align: middle; box-shadow: 0 0 0 2px rgba(255,255,255,.7); }
@@ -579,3 +579,6 @@ body.compact #ov-stats .stats-help { font-size: 15px; line-height: 1.55; top: 42
 /* 试玩版水印（不挡点击） */
 #wm { position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 9999; pointer-events: none; background-repeat: repeat; }
 #wm span { position: absolute; right: 14px; bottom: 8px; font-size: 12px; letter-spacing: 3px; color: rgba(160,150,140,.45); }
+#ov-statshelp .modal { width: 900px; }   /* 数值说明：放宽、字小一点，一屏看完不用滚 */
+#ov-statshelp .how-text { width: auto; max-width: none; font-size: 19px; line-height: 1.6; }
+body.compact #ov-statshelp .how-text { font-size: 21px; line-height: 1.5; }

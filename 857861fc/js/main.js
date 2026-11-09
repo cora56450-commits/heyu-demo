@@ -1,14 +1,14 @@
 // 启动：缩放、读设置、离线判定、标题画面
-import { h, A, $, showScreen, modal, confirmBox, closeOv, toast } from './ui/dom.js?v=1794225428';
-import { store, getSettings, saveSettings, getGallery } from './store.js?v=1794225428';
-import { G, loadEvents, startRun, continueRun, triggerEnding, playerReturned, startIdleWatch, hasAsset } from './game.js?v=1794225428';
-import { newRun, loadRun, hasActiveRun, saveRun } from './state.js?v=1794225428';
-import { readLastActive, touchActive, installActivity, installCopyHook } from './meta.js?v=1794225428';
-import { MID } from './config/endings.js?v=1794225428';
-import { madTier } from './config/values.js?v=1794225428';
-import * as P from './ui/panels.js?v=1794225428';
-import { DEMO, DEMO_KEY, DEMO_BASE, DEMO_LAST_DAY, DEMO_TAG } from './config/demo.js?v=1794225428';
-import { showLock, showAftermath } from './ui/ending.js?v=1794225428';
+import { h, A, $, showScreen, modal, confirmBox, closeOv, toast } from './ui/dom.js?v=1794225880';
+import { store, getSettings, saveSettings, getGallery } from './store.js?v=1794225880';
+import { G, loadEvents, startRun, continueRun, triggerEnding, playerReturned, startIdleWatch, hasAsset } from './game.js?v=1794225880';
+import { newRun, loadRun, hasActiveRun, saveRun } from './state.js?v=1794225880';
+import { readLastActive, touchActive, installActivity, installCopyHook } from './meta.js?v=1794225880';
+import { MID } from './config/endings.js?v=1794225880';
+import { madTier } from './config/values.js?v=1794225880';
+import * as P from './ui/panels.js?v=1794225880';
+import { DEMO, DEMO_KEY, DEMO_BASE, DEMO_LAST_DAY, DEMO_TAG } from './config/demo.js?v=1794225880';
+import { showLock, showAftermath } from './ui/ending.js?v=1794225880';
 
 // 1280×720 等比缩放，四周黑边
 function fit() {
@@ -47,14 +47,14 @@ document.getElementById('rotate-go')?.addEventListener('click', async () => {
 // 键盘推进对话
 addEventListener('keydown', e => {
   if (e.target.matches('input,textarea')) return;
-  if ((e.key === ' ' || e.key === 'Enter') && G.R && !$('#overlays').children.length) { e.preventDefault(); import('./game.js?v=1794225428').then(m => m.advance()); }
+  if ((e.key === ' ' || e.key === 'Enter') && G.R && !$('#overlays').children.length) { e.preventDefault(); import('./game.js?v=1794225880').then(m => m.advance()); }
 });
 
 let bootOffline = 0;
 
 function showTitle() {
   G.R = null; G.s = null;
-  import('./audio.js?v=1794225428').then(a => a.playBgm('title'));
+  import('./audio.js?v=1794225880').then(a => a.playBgm('title'));
   for (const o of [...$('#overlays').children]) o.remove();
   const active = hasActiveRun();
   const items = [

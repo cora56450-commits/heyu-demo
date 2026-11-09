@@ -1,14 +1,14 @@
 // 启动：缩放、读设置、离线判定、标题画面
-import { h, A, $, showScreen, modal, confirmBox, closeOv, toast } from './ui/dom.js?v=1794226315';
-import { store, getSettings, saveSettings, getGallery } from './store.js?v=1794226315';
-import { G, loadEvents, startRun, continueRun, triggerEnding, playerReturned, startIdleWatch, hasAsset } from './game.js?v=1794226315';
-import { newRun, loadRun, hasActiveRun, saveRun } from './state.js?v=1794226315';
-import { readLastActive, touchActive, installActivity, installCopyHook } from './meta.js?v=1794226315';
-import { MID } from './config/endings.js?v=1794226315';
-import { madTier } from './config/values.js?v=1794226315';
-import * as P from './ui/panels.js?v=1794226315';
-import { DEMO, DEMO_KEY, DEMO_BASE, DEMO_LAST_DAY, DEMO_TAG } from './config/demo.js?v=1794226315';
-import { showLock, showAftermath } from './ui/ending.js?v=1794226315';
+import { h, A, $, showScreen, modal, confirmBox, closeOv, toast } from './ui/dom.js?v=1794231182';
+import { store, getSettings, saveSettings, getGallery } from './store.js?v=1794231182';
+import { G, loadEvents, startRun, continueRun, triggerEnding, playerReturned, startIdleWatch, hasAsset } from './game.js?v=1794231182';
+import { newRun, loadRun, hasActiveRun, saveRun } from './state.js?v=1794231182';
+import { readLastActive, touchActive, installActivity, installCopyHook } from './meta.js?v=1794231182';
+import { MID } from './config/endings.js?v=1794231182';
+import { madTier } from './config/values.js?v=1794231182';
+import * as P from './ui/panels.js?v=1794231182';
+import { DEMO, DEMO_KEY, DEMO_BASE, DEMO_LAST_DAY, DEMO_TAG } from './config/demo.js?v=1794231182';
+import { showLock, showAftermath } from './ui/ending.js?v=1794231182';
 
 // 1280×720 等比缩放，四周黑边
 function fit() {
@@ -47,14 +47,14 @@ document.getElementById('rotate-go')?.addEventListener('click', async () => {
 // 键盘推进对话
 addEventListener('keydown', e => {
   if (e.target.matches('input,textarea')) return;
-  if ((e.key === ' ' || e.key === 'Enter') && G.R && !$('#overlays').children.length) { e.preventDefault(); import('./game.js?v=1794226315').then(m => m.advance()); }
+  if ((e.key === ' ' || e.key === 'Enter') && G.R && !$('#overlays').children.length) { e.preventDefault(); import('./game.js?v=1794231182').then(m => m.advance()); }
 });
 
 let bootOffline = 0;
 
 function showTitle() {
   G.R = null; G.s = null;
-  import('./audio.js?v=1794226315').then(a => a.playBgm('title'));
+  import('./audio.js?v=1794231182').then(a => a.playBgm('title'));
   for (const o of [...$('#overlays').children]) o.remove();
   const active = hasActiveRun();
   const items = [
@@ -187,6 +187,7 @@ function otherTabOpen() {
 let tabChannel = null;
 function showElsewhere() {
   G.blocked = true;
+  import('./audio.js?v=1794231182').then(a => a.stopAll()).catch(() => {});   // 被接管的页面不能还在放音乐，不然两边的 BGM 叠在一起
   for (const o of [...$('#overlays').children]) o.remove();
   // 测试记录 7 #A：忘了关的后台页面也会把人卡在这里，所以给一个「在这里继续」：通知另一边停下，这边重新进
   const take = () => { try { tabChannel?.postMessage('takeover'); sessionStorage.setItem('gucun_takeover', '1'); } catch {} location.reload(); };
@@ -210,9 +211,9 @@ async function boot() {
   const qs = new URLSearchParams(location.search);
   if (qs.has('debug') && LOCAL) saveSettings({ ...getSettings(), debug: true });
   if (!LOCAL && getSettings().debug) saveSettings({ ...getSettings(), debug: false });   // 线上版不开调试
-  const tookOver = (() => { try { const v = sessionStorage.getItem('gucun_takeover'); sessionStorage.removeItem('gucun_takeover'); return !!v; } catch { return false; } })();
-  if (await otherTabOpen() && !tookOver) return showElsewhere();
-  if (tookOver) tabChannel?.postMessage('takeover');
+  // 同一个浏览器里还有别的页面开着（常是忘了关的旧标签页、微信里没关的旧窗口）：新打开的这个直接接管，旧的那边停下、静音
+  try { sessionStorage.removeItem('gucun_takeover'); } catch {}
+  if (await otherTabOpen()) tabChannel?.postMessage('takeover');
   let lastActive = readLastActive();
   // 调试：?debug=1&offline=小时数，模拟离开了这么久
   if (qs.has('debug') && qs.has('offline')) lastActive = Date.now() - parseFloat(qs.get('offline')) * 3600e3;

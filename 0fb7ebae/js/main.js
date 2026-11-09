@@ -1,14 +1,14 @@
 // 启动：缩放、读设置、离线判定、标题画面
-import { h, A, $, showScreen, modal, confirmBox, closeOv, toast } from './ui/dom.js?v=1794225084';
-import { store, getSettings, saveSettings, getGallery } from './store.js?v=1794225084';
-import { G, loadEvents, startRun, continueRun, triggerEnding, playerReturned, startIdleWatch, hasAsset } from './game.js?v=1794225084';
-import { newRun, loadRun, hasActiveRun, saveRun } from './state.js?v=1794225084';
-import { readLastActive, touchActive, installActivity, installCopyHook } from './meta.js?v=1794225084';
-import { MID } from './config/endings.js?v=1794225084';
-import { madTier } from './config/values.js?v=1794225084';
-import * as P from './ui/panels.js?v=1794225084';
-import { DEMO, DEMO_KEY, DEMO_BASE, DEMO_LAST_DAY, DEMO_TAG } from './config/demo.js?v=1794225084';
-import { showLock, showAftermath } from './ui/ending.js?v=1794225084';
+import { h, A, $, showScreen, modal, confirmBox, closeOv, toast } from './ui/dom.js?v=1794225294';
+import { store, getSettings, saveSettings, getGallery } from './store.js?v=1794225294';
+import { G, loadEvents, startRun, continueRun, triggerEnding, playerReturned, startIdleWatch, hasAsset } from './game.js?v=1794225294';
+import { newRun, loadRun, hasActiveRun, saveRun } from './state.js?v=1794225294';
+import { readLastActive, touchActive, installActivity, installCopyHook } from './meta.js?v=1794225294';
+import { MID } from './config/endings.js?v=1794225294';
+import { madTier } from './config/values.js?v=1794225294';
+import * as P from './ui/panels.js?v=1794225294';
+import { DEMO, DEMO_KEY, DEMO_BASE, DEMO_LAST_DAY, DEMO_TAG } from './config/demo.js?v=1794225294';
+import { showLock, showAftermath } from './ui/ending.js?v=1794225294';
 
 // 1280×720 等比缩放，四周黑边
 function fit() {
@@ -47,14 +47,14 @@ document.getElementById('rotate-go')?.addEventListener('click', async () => {
 // 键盘推进对话
 addEventListener('keydown', e => {
   if (e.target.matches('input,textarea')) return;
-  if ((e.key === ' ' || e.key === 'Enter') && G.R && !$('#overlays').children.length) { e.preventDefault(); import('./game.js?v=1794225084').then(m => m.advance()); }
+  if ((e.key === ' ' || e.key === 'Enter') && G.R && !$('#overlays').children.length) { e.preventDefault(); import('./game.js?v=1794225294').then(m => m.advance()); }
 });
 
 let bootOffline = 0;
 
 function showTitle() {
   G.R = null; G.s = null;
-  import('./audio.js?v=1794225084').then(a => a.playBgm('title'));
+  import('./audio.js?v=1794225294').then(a => a.playBgm('title'));
   for (const o of [...$('#overlays').children]) o.remove();
   const active = hasActiveRun();
   const items = [
@@ -174,7 +174,7 @@ async function cont() {
 // 同一个游戏开了两个标签页：后开的那个不能操作，避免两边存档互相覆盖
 function otherTabOpen() {
   if (!('BroadcastChannel' in window)) return Promise.resolve(false);
-  const bc = new BroadcastChannel('gucun'); tabChannel = bc;
+  const bc = new BroadcastChannel(DEMO ? 'gucun_demo' : 'gucun'); tabChannel = bc;   // 试玩版和完整版不互相锁
   let other = false, asking = true;
   bc.onmessage = e => {
     if (e.data === 'hello' && !G.blocked) bc.postMessage('here');

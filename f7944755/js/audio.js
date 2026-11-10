@@ -1,6 +1,6 @@
 // BGM：5 个播放位，场景切换时淡入淡出约 1.5 秒；文件放在 assets/bgm/<播放位>.mp3，没有就不响
 // title 标题 / daily 日常 / uneasy 不安（缝合、牠、后山）/ night 夜里和河独处 / meta meta 时刻与结局
-import { getSettings } from './store.js?v=1794303746';
+import { getSettings } from './store.js?v=1794309381';
 
 export const SLOTS = ['title', 'daily', 'uneasy', 'night', 'meta'];
 const FADE = 1500;
@@ -10,7 +10,7 @@ let current = null, wanted = null, unlocked = false, dead = false;
 function vol() { const s = getSettings(); return s.bgmOn === false ? 0 : (s.volume ?? 0.7); }
 function track(slot) {
   if (!tracks[slot]) {
-    const a = new Audio(`assets/bgm/${slot}.mp3`); a.loop = true; a.volume = 0; a.preload = 'auto';
+    const a = new Audio(`../assets/bgm/${slot}.mp3`); a.loop = true; a.volume = 0; a.preload = 'auto';
     a.addEventListener('error', () => { a.dataset.missing = '1'; });
     tracks[slot] = a;
   }

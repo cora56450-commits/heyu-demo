@@ -28,19 +28,19 @@ img { -webkit-user-drag: none; user-select: none; }
 #toast div { background: rgba(20, 16, 12, .88); color: var(--paper); padding: 10px 22px; border-radius: 2px; margin-bottom: 6px; font-size: 18px; animation: fadein .3s; }
 
 /* —— 素材框（9-slice）—— */
-.paper { border-style: solid; border-width: 28px; border-image: url(../assets/ui/panel.webp) 64 fill / 28px stretch; }
-.pp { border-style: solid; border-width: 28px; border-image: url(../assets/ui/panel.webp) 64 fill / 28px stretch; }
+.paper { border-style: solid; border-width: 28px; border-image: url(../../assets/ui/panel.webp) 64 fill / 28px stretch; }
+.pp { border-style: solid; border-width: 28px; border-image: url(../../assets/ui/panel.webp) 64 fill / 28px stretch; }
 .btn {
-  background: none; border-style: solid; border-width: 12px; border-image: url(../assets/ui/btn.webp) 24 fill / 12px stretch;
+  background: none; border-style: solid; border-width: 12px; border-image: url(../../assets/ui/btn.webp) 24 fill / 12px stretch;
   padding: 6px 14px; font-size: 18px; color: var(--ink); text-align: left;
 }
-.btnsel, .btn.sel { border-style: solid; border-width: 14px; border-image: url(../assets/ui/btn_sel.webp) 32 fill / 14px stretch; }
-.btn:hover:not(:disabled) { border-image: url(../assets/ui/btn_sel.webp) 32 fill / 12px stretch; }
+.btnsel, .btn.sel { border-style: solid; border-width: 14px; border-image: url(../../assets/ui/btn_sel.webp) 32 fill / 14px stretch; }
+.btn:hover:not(:disabled) { border-image: url(../../assets/ui/btn_sel.webp) 32 fill / 12px stretch; }
 .btn:disabled { opacity: .45; cursor: default; }
 .btn .cost { color: var(--red); font-size: 13px; margin-left: 10px; flex: none; }
-.nametag, .tag { border-style: solid; border-width: 0 22px; border-image: url(../assets/ui/nametag.webp) 0 44 fill / 0 22px stretch; color: var(--paper); display: inline-block; }
-.card { border-style: solid; border-width: 20px; border-image: url(../assets/ui/card_locked.webp) 40 fill / 20px stretch; }
-.card.on { border-image: url(../assets/ui/card_unlocked.webp) 40 fill / 20px stretch; color: var(--paper); }
+.nametag, .tag { border-style: solid; border-width: 0 22px; border-image: url(../../assets/ui/nametag.webp) 0 44 fill / 0 22px stretch; color: var(--paper); display: inline-block; }
+.card { border-style: solid; border-width: 20px; border-image: url(../../assets/ui/card_locked.webp) 40 fill / 20px stretch; }
+.card.on { border-image: url(../../assets/ui/card_unlocked.webp) 40 fill / 20px stretch; color: var(--paper); }
 .close-x { position: absolute; right: 26px; top: 18px; font-size: 30px; background: none; border: 0; color: var(--paper); z-index: 5; }
 .title-h { font-size: 30px; letter-spacing: 8px; font-weight: 600; }
 
@@ -99,7 +99,7 @@ body.calm .char.on { animation: none; }
 .user-portrait .user-fig { top: 0; height: 500px; }
 .user-portrait.feign { filter: grayscale(.6) brightness(.85); }
 .user-portrait.under-cg { opacity: 0; }
-.dialog::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0; border-style: solid; border-width: 28px; border-image: url(../assets/ui/panel.webp) 64 fill / 28px stretch; opacity: .9; }
+.dialog::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0; border-style: solid; border-width: 28px; border-image: url(../../assets/ui/panel.webp) 64 fill / 28px stretch; opacity: .9; }
 .dialog .nametag { position: absolute; left: 30px; top: -16px; z-index: 2; height: auto; line-height: normal; padding: 6px 14px; font-size: 18px; letter-spacing: 6px; }
 .dialog .text { position: absolute; left: 52px; right: 52px; top: 44px; bottom: 40px; font-size: 20px; line-height: 1.8; user-select: text; -webkit-user-select: text; cursor: pointer; overflow: hidden; }
 .dialog .text.narr { color: var(--ink2); }
@@ -320,9 +320,9 @@ body.loose .dialog::before { filter: contrast(.92); transform: rotate(-.25deg); 
 .pinch-layer { position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 6; pointer-events: none; }
 .pinch-list { position: absolute; left: 560px; top: 150px; width: 400px; display: flex; flex-direction: column; gap: 8px; pointer-events: auto; }
 .pinch-hand-layer { position: absolute; pointer-events: none; z-index: 2; }
-.pinch-opt { position: relative; height: 52px; border: 0; background: rgba(239,234,226,.94); border-style: solid; border-width: 12px; border-image: url(../assets/ui/btn.webp) 24 fill / 12px stretch; font-size: 19px; color: var(--ink); letter-spacing: 2px; cursor: pointer; }
-.pinch-opt:hover { border-image: url(../assets/ui/btn_sel.webp) 32 fill / 12px stretch; }
-.pinch-opt.bleed { color: #5a0d0d; border-image: url(../assets/ui/btn_sel.webp) 32 fill / 12px stretch; box-shadow: 0 0 0 1px rgba(163,36,42,.6), 0 0 18px rgba(163,36,42,.45); animation: pulse 2.4s ease-in-out infinite;
+.pinch-opt { position: relative; height: 52px; border: 0; background: rgba(239,234,226,.94); border-style: solid; border-width: 12px; border-image: url(../../assets/ui/btn.webp) 24 fill / 12px stretch; font-size: 19px; color: var(--ink); letter-spacing: 2px; cursor: pointer; }
+.pinch-opt:hover { border-image: url(../../assets/ui/btn_sel.webp) 32 fill / 12px stretch; }
+.pinch-opt.bleed { color: #5a0d0d; border-image: url(../../assets/ui/btn_sel.webp) 32 fill / 12px stretch; box-shadow: 0 0 0 1px rgba(163,36,42,.6), 0 0 18px rgba(163,36,42,.45); animation: pulse 2.4s ease-in-out infinite;
   background: linear-gradient(100deg, transparent 47%, rgba(120,10,10,.55) 48%, transparent 50%) , linear-gradient(80deg, transparent 70%, rgba(120,10,10,.35) 71%, transparent 72%), rgba(239,224,220,.95); }
 .pinch-opt.bleed::after { content: ''; position: absolute; left: 46%; top: 100%; width: 3px; height: 10px; background: #8e1414; border-radius: 0 0 2px 2px; animation: drip 2.6s ease-in infinite; }
 .pinch-opt.bleed.lv2 { box-shadow: 0 0 0 2px rgba(163,36,42,.8), 0 0 26px rgba(163,36,42,.6); }
@@ -376,7 +376,7 @@ body.loose .dialog::before { filter: contrast(.92); transform: rotate(-.25deg); 
 #scr-title .menu .orn.r { left: 100%; margin-left: 2px; transform: translateX(26px); }
 #scr-title .menu button.sel .orn, #scr-title .menu button:hover:not(:disabled) .orn { opacity: 1; transform: none; }
 /* 有素材时用 ui/menu_ornament（左右各一半），没有就用代码画的针和红线 */
-#scr-title .menu.has-orn .orn { background: url(../assets/ui/menu_ornament.webp) no-repeat; background-size: 200% 100%; width: 104px; height: 46px; margin-top: -23px; }
+#scr-title .menu.has-orn .orn { background: url(../../assets/ui/menu_ornament.webp) no-repeat; background-size: 200% 100%; width: 104px; height: 46px; margin-top: -23px; }
 #scr-title .menu.has-orn .orn.l { background-position: left center; }
 #scr-title .menu.has-orn .orn.r { background-position: right center; }
 #scr-title .menu:not(.has-orn) .orn::before { content: ''; position: absolute; top: 10px; height: 1.5px; width: 100%; background: #c0383c; box-shadow: 0 0 4px rgba(192,56,60,.6); }
@@ -396,7 +396,7 @@ body.calm .petal, body.calm .drift { animation: none; }
 
 /* 有「流血的选项框」素材时：整张贴在选项后面（素材里框的上下留了滴血的空间） */
 .pinch-layer.real .pinch-opt.bleed { border-image: none; border-color: transparent; background: none; box-shadow: none; animation: none; }
-.pinch-layer.real .pinch-opt.bleed::before { content: ''; position: absolute; left: -16px; right: -16px; top: -36px; bottom: -48px; background: url(../assets/ui/option_bleed.webp) center / 100% 100% no-repeat; z-index: -1; transform: scaleX(-1); }   /* 镜像：裂口在右端，正好是他捏住的地方 */
+.pinch-layer.real .pinch-opt.bleed::before { content: ''; position: absolute; left: -16px; right: -16px; top: -36px; bottom: -48px; background: url(../../assets/ui/option_bleed.webp) center / 100% 100% no-repeat; z-index: -1; transform: scaleX(-1); }   /* 镜像：裂口在右端，正好是他捏住的地方 */
 .pinch-layer.real .pinch-opt.bleed::after { display: none; }
 .pinch-layer.real .pinch-opt.bleed.lv2::before { filter: saturate(1.4) contrast(1.1); }
 .pinch-layer.real .pinch-opt.bleed.lv3::before { filter: saturate(1.8) contrast(1.2); transform: scaleX(-1) rotate(1.5deg); }
@@ -416,7 +416,7 @@ body.calm .petal, body.calm .drift { animation: none; }
 #scr-title .cover-layer.depth { mix-blend-mode: multiply; background: linear-gradient(180deg, rgba(150,190,175,.0) 0%, rgba(40,80,70,.35) 55%, rgba(8,28,24,.85) 100%); }
 #scr-title .cover-wrap.from-bottom .cover-layer.depth { background: linear-gradient(180deg, rgba(150,190,175,0) 0%, rgba(30,70,60,.25) 60%, rgba(8,28,24,.7) 100%); }
 /* 河里的光和花瓣透到人身上 */
-#scr-title .cover-layer.water { background: url(../assets/cover/river.webp) 0 0 / 1280px 720px no-repeat; mix-blend-mode: screen; opacity: .28; }
+#scr-title .cover-layer.water { background: url(../../assets/cover/river.webp) 0 0 / 1280px 720px no-repeat; mix-blend-mode: screen; opacity: .28; }
 /* 染血：暗红 */
 #scr-title .cover-wrap.blood .cover-layer.tint { background: #6a1f22; opacity: .38; }
 #scr-title .cover-wrap.blood .cover-layer.depth { background: linear-gradient(180deg, rgba(190,150,150,0) 0%, rgba(80,25,25,.35) 55%, rgba(30,6,8,.85) 100%); }

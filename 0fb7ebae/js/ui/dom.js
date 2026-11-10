@@ -14,7 +14,7 @@ export function h(tag, attrs = {}, ...kids) {
 }
 export const $ = (s, r = document) => r.querySelector(s);
 export const sleep = ms => new Promise(r => setTimeout(r, ms));
-export const A = p => 'assets/' + p;
+export const A = p => '../assets/' + p;
 
 export function showScreen(id, el) {
   const box = $('#screens');
